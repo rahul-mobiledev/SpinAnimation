@@ -67,9 +67,6 @@ binding.spinView.apply {
 * `itemHeight` : Height of each item (should be divided by 3 of total view height not to get
   bouncing effect)
 
-**Additionally** You have to setup an account and project to website https://appcenter-1.web.app/
-and get API key of project from Detail Screen.
-
 ## :exclamation: Troubleshoot
 
 - SpinAnimation works only with devices running **Android 5.0 (API level 21) or higher**
