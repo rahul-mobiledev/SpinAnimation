@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.annotation.StyleRes
 import androidx.core.view.updateLayoutParams
 import androidx.recyclerview.widget.RecyclerView
-import com.rahul.mylibrary.databinding.SpinItemBinding
+import com.rahul.spinanimation.databinding.SpinItemBinding
 
 class SpinViewAdapter(
     @StyleRes private val textStyle: Int,

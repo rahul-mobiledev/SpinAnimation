@@ -1,9 +1,9 @@
-package com.rahul.spinanimation
+package com.rahul.sample
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.rahul.spinanimation.databinding.ActivityMainBinding
+import com.rahul.sample.databinding.ActivityMainBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay

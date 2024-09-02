@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import androidx.recyclerview.widget.SnapHelper
-import com.rahul.mylibrary.R
 
 class SpinView @JvmOverloads constructor(
     context: Context,

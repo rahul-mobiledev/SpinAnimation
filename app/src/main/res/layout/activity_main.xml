@@ -10,7 +10,7 @@
         android:descendantFocusability="blocksDescendants"
         android:focusable="false"
         android:focusableInTouchMode="false"
-        tools:context=".MainActivity">
+        tools:context="com.rahul.sample.MainActivity">
 
         <com.rahul.spinanimation.SpinView
             android:id="@+id/spinView"

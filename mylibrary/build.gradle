@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace 'com.rahul.mylibrary'
+    namespace 'com.rahul.spinanimation'
     compileSdk 34
 
     defaultConfig {
@@ -57,7 +57,7 @@ publishing {
         release(MavenPublication) {
             groupId = 'com.github.rahul-mobiledev'
             artifactId = 'SpinAnimation'
-            version = '1.0.0'
+            version = '2.0.0'
 
             afterEvaluate {
                 from components.release

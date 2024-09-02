@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace 'com.rahul.spinanimation'
+    namespace 'com.rahul.sample'
     compileSdk 34
 
     defaultConfig {
