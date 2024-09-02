@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SpinView">
+        <attr name="scrollSpeedMultiplier" format="float" />
+        <attr name="decelerationDelay" format="float" />
+        <attr name="edgeItemScale" format="float" />
+        <attr name="textStyle" format="reference" />
+        <attr name="itemHeight" format="dimension" />
+    </declare-styleable>
+</resources>

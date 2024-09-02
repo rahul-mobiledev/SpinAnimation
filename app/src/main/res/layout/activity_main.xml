@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:descendantFocusability="blocksDescendants"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        tools:context=".MainActivity">
+
+        <com.rahul.spinanimation.SpinView
+            android:id="@+id/spinView"
+            android:background="@drawable/spin_background"
+            android:foreground="@drawable/spin_foreground"
+            android:layout_width="260dp"
+            android:layout_height="260dp"
+            android:layout_gravity="center"
+            app:edgeItemScale="0.3"
+            app:itemHeight="87dp"
+            app:scrollSpeedMultiplier="2"
+            app:textStyle="@style/SpinText" />
+
+    </FrameLayout>
+</layout>

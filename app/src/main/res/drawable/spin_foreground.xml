@@ -1,0 +1,9 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="260dp"
+    android:height="260dp"
+    android:viewportWidth="260"
+    android:viewportHeight="260">
+    <path
+        android:fillColor="@color/spin_overlay"
+        android:pathData="M108.33,12.51C121.74,4.77 138.26,4.77 151.67,12.51L220.92,52.49C234.32,60.23 242.58,74.54 242.58,90.02V169.98C242.58,185.46 234.32,199.77 220.92,207.51L151.67,247.49C138.26,255.23 121.74,255.23 108.33,247.49L39.08,207.51C25.68,199.77 17.42,185.46 17.42,169.98V90.02C17.42,74.54 25.68,60.23 39.08,52.49L108.33,12.51Z" />
+</vector>
