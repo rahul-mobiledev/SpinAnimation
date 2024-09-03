@@ -66,6 +66,8 @@ binding.spinView.apply {
 * `textStyle` : to set Text Appearance
 * `itemHeight` : Height of each item (should be divided by 3 of total view height not to get
   bouncing effect)
+* `scrollSound` : Raw resource of sound file to play when each item scroll from center
+* `vibrationDuration` : Duration in millisecond to vibrate device
 
 ## :exclamation: Troubleshoot
 

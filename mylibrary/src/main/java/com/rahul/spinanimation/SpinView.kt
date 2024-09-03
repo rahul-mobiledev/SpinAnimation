@@ -1,10 +1,18 @@
 package com.rahul.spinanimation
 
 import android.content.Context
+import android.media.AudioAttributes
+import android.media.SoundPool
+import android.os.Build
+import android.os.CombinedVibration
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.os.VibratorManager
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.widget.FrameLayout
+import androidx.annotation.RawRes
 import androidx.annotation.StyleRes
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -21,9 +29,13 @@ class SpinView @JvmOverloads constructor(
     private var decelerationDelay: Float = 1f
     private var itemScale: Float = 0f
     private var itemHeight: Float = 100f
+    private var vibrationDuration: Long = 0L
 
     @StyleRes
     private var textStyle: Int = 0
+
+    @RawRes
+    private var scrollSound: Int = 0
 
     private val snapHelper: SnapHelper by lazy {
         LinearSnapHelper()
@@ -49,10 +61,68 @@ class SpinView @JvmOverloads constructor(
         mutableListOf()
     }
 
+    private val audioAttributes: AudioAttributes by lazy {
+        AudioAttributes.Builder()
+            .setUsage(AudioAttributes.USAGE_MEDIA)
+            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+            .build()
+    }
+
+    private val soundPool: SoundPool by lazy {
+        SoundPool.Builder()
+            .setMaxStreams(Int.MAX_VALUE) // Only one stream to prevent overlapping sounds
+            .setAudioAttributes(audioAttributes)
+            .build()
+    }
+
+    private val soundId: Int? by lazy {
+        if (scrollSound == 0) {
+            null
+        } else {
+            soundPool.load(context, scrollSound, 1)
+        }
+    }
+
+    private val onChildItemScrolled: (Int) -> Unit by lazy {
+        { _ ->
+            soundId?.let {
+                soundPool.play(it, 1f, 1f, 1, 0, 1f)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    (vibrator as? VibratorManager)?.apply {
+                        vibrate(
+                            CombinedVibration.createParallel(
+                                VibrationEffect.createOneShot(vibrationDuration, 250)
+                            )
+                        )
+                    }
+                } else {
+                    (vibrator as? Vibrator)?.apply {
+                        vibrate(vibrationDuration)
+                    }
+                }
+            }
+        }
+    }
+
+    private val vibrator by lazy {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
+        } else {
+            context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        }
+    }
+
     private val onScrollListener: OnScrollListener by lazy {
         object : OnScrollListener() {
+            private var lastPlayedPosition: Int = -1
+
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
+                val currentFirstPosition = spinLayoutManager.findFirstVisibleItemPosition()
+                if (lastPlayedPosition != currentFirstPosition) {
+                    lastPlayedPosition = currentFirstPosition
+                    onChildItemScrolled(lastPlayedPosition)
+                }
                 val centerY = recyclerView.height / 2
                 for (i in 0 until recyclerView.childCount) {
                     val child = recyclerView.getChildAt(i)
@@ -93,6 +163,11 @@ class SpinView @JvmOverloads constructor(
             itemScale = getFloat(R.styleable.SpinView_edgeItemScale, itemScale)
             textStyle = getResourceId(R.styleable.SpinView_textStyle, textStyle)
             itemHeight = getDimension(R.styleable.SpinView_itemHeight, itemHeight)
+            scrollSound = getResourceId(R.styleable.SpinView_scrollSound, scrollSound)
+            vibrationDuration = getFloat(
+                R.styleable.SpinView_vibrationDuration,
+                vibrationDuration.toFloat()
+            ).toLong()
             recycle()
         }
     }
