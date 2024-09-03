@@ -1,6 +1,7 @@
 package com.rahul.sample
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.rahul.sample.databinding.ActivityMainBinding
@@ -29,7 +30,9 @@ class MainActivity : AppCompatActivity() {
             startInfiniteScroll()
             CoroutineScope(Dispatchers.Main).launch {
                 delay(3000)
-                setResult("5x")
+                setResult("5x") {
+                    Log.e("Hello", "World")
+                }
             }
         }
     }

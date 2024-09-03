@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="SpinView">
+        <!-- Default is 1f
+             Speed Multiplier for Scrolling among list (0.5x,1x,1.5x,2x,10x...) -->
         <attr name="scrollSpeedMultiplier" format="float" />
+        <!-- Default is 1f
+             Deceleration Delay Multiplier to set result by delay (1x,2x,3x...) -->
         <attr name="decelerationDelay" format="float" />
+        <!-- Default is 0f
+             Item scale from 0..1 for Edge Items while Scrolling -->
         <attr name="edgeItemScale" format="float" />
+        <!-- to set Text Appearance -->
         <attr name="textStyle" format="reference" />
+        <!-- Height of each item (should be divided by 3 of total view height not to get bouncing effect) -->
         <attr name="itemHeight" format="dimension" />
+        <!-- Raw resource of sound file to play when each item scroll from center -->
         <attr name="scrollSound" format="reference" />
+        <!-- Duration in millisecond to vibrate device -->
         <attr name="vibrationDuration" format="float" />
     </declare-styleable>
 </resources>

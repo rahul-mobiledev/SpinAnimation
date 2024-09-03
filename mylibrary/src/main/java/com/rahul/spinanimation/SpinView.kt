@@ -37,6 +37,8 @@ class SpinView @JvmOverloads constructor(
     @RawRes
     private var scrollSound: Int = 0
 
+    private var onSetResult: OnSetResult? = null
+
     private val snapHelper: SnapHelper by lazy {
         LinearSnapHelper()
     }
@@ -129,6 +131,16 @@ class SpinView @JvmOverloads constructor(
                     child?.let { scaleItem(it, centerY, recyclerView) }
                 }
             }
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                when (newState) {
+                    RecyclerView.SCROLL_STATE_IDLE -> {
+                        onSetResult?.onDisplayResult()
+                        onSetResult = null
+                    }
+                }
+            }
         }
     }
 
@@ -187,7 +199,7 @@ class SpinView @JvmOverloads constructor(
         }
     }
 
-    fun setResult(result: String) {
+    fun setResult(result: String, onSetResult: OnSetResult) {
         val position = spinLayoutManager.findFirstVisibleItemPosition()
         val actualPositionIndex = position % items.size
         val index = items.indexOfFirst { it == result } + 1
@@ -195,10 +207,15 @@ class SpinView @JvmOverloads constructor(
         with(recyclerView) {
             stopScroll()
             smoothScrollToPosition(resultPosition)
+            this@SpinView.onSetResult = onSetResult
         }
     }
 
     override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
         return true
+    }
+
+    fun interface OnSetResult {
+        fun onDisplayResult()
     }
 }
